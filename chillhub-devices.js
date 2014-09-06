@@ -85,6 +85,7 @@ function ChillhubDevice(ttyPath, receive) {
 	
 	function routeIncomingMessage(data) {
 		// parse into whatever form and then send it along
+		console.log("Got this raw data: ", data);
 		var jsonData = parseStreamToJson(data);
 		
 		switch (jsonData.type) {
@@ -115,6 +116,7 @@ function ChillhubDevice(ttyPath, receive) {
 				}
 				break;
 			case 0x06: // get time
+            console.log("Got at time request...");
 				self.send({
 					type: 0x07,
 					content: encodeTime()
@@ -122,6 +124,7 @@ function ChillhubDevice(ttyPath, receive) {
 				break;
 			default:
 				jsonData.device = self.deviceType;
+				console.log("Got this parsed data: ", jsonData);
 				receive(self, jsonData);
 		}	
 	}
@@ -199,11 +202,14 @@ function ChillhubDevice(ttyPath, receive) {
 		
 		var parseObjectFromStream = function(instream) {
 			var length = instream.readUInt8();
-			var obj;
+			var obj = new Object();
 			
 			for (var i = 0; i < length; i++) {
 				var fieldName = parseStringFromStream(instream);
-				obj[fieldName] = parseDataFromStream(instream);
+            console.log("Field name: ", fieldName);
+            var valueData = parseDataFromStream(instream);
+            console.log("Value data: ", valueData);
+				obj[fieldName] = valueData;
 			}
 			
 			return obj;
