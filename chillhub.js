@@ -41,7 +41,6 @@ fb.startConnection(configFile, hwVersion, swVersion, function(e, attachments) {
    }
 }); 
 
-/*
 gea.connect('refrigerator', function(refrigerator) {
 	console.log('connected to fridge!');
 	
@@ -65,4 +64,3 @@ gea.connect('refrigerator', function(refrigerator) {
 	
 	console.log('subscribed to all fridge events');
 });
-*/
