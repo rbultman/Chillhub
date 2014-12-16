@@ -110,6 +110,11 @@ function ChillhubDevice(ttyPath, receive, announce) {
 		
 		switch (jsonData.type) {
 			case 0x00:
+for (var pn in jsonData) {
+	console.log(pn + ": " + jsonData[pn]);
+}
+
+
 				self.deviceType = jsonData.content[0];
 				self.UUID = jsonData.content[1];
 				console.log('REGISTERed device "'+self.deviceType+'" with UUID '+ self.UUID + '!');
